@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Paleta bioceánica */
+    --background: 157 52% 94%; /* #e6f0dc */
+    --foreground: 128 37% 27%; /* #2d622e */
+
+    --card: 0 0% 100%;
+    --card-foreground: 128 37% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 128 37% 27%;
+
+    --primary: 128 37% 27%; /* #2d622e - verde oscuro */
+    --primary-foreground: 157 52% 94%;
+
+    --secondary: 73 59% 50%; /* #b0cc46 - verde lima */
+    --secondary-foreground: 128 37% 27%;
+
+    --muted: 170 30% 76%; /* #b3d6d4 - mint */
+    --muted-foreground: 128 37% 27%;
+
+    --accent: 194 61% 66%; /* #7cc2dd - azul claro */
+    --accent-foreground: 128 37% 27%;
+
+    --success: 128 21% 46%; /* #608961 - verde sage */
+    --success-foreground: 157 52% 94%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 170 30% 76%;
+    --input: 170 30% 76%;
+    --ring: 128 37% 27%;
+
+    --radius: 0.75rem;
+
+    /* Gradientes personalizados */
+    --gradient-primary: linear-gradient(135deg, hsl(128 37% 27%), hsl(128 21% 46%));
+    --gradient-accent: linear-gradient(135deg, hsl(73 59% 50%), hsl(194 61% 66%));
+    --gradient-subtle: linear-gradient(180deg, hsl(157 52% 94%), hsl(170 30% 76%));
+
+    /* Sombras elegantes */
+    --shadow-sm: 0 2px 8px hsl(128 37% 27% / 0.1);
+    --shadow-md: 0 4px 16px hsl(128 37% 27% / 0.15);
+    --shadow-lg: 0 10px 30px hsl(128 37% 27% / 0.2);
+    --shadow-glow: 0 0 30px hsl(73 59% 50% / 0.3);
+
+    /* Transiciones suaves */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 128 37% 12%;
+    --foreground: 157 52% 94%;
+
+    --card: 128 37% 18%;
+    --card-foreground: 157 52% 94%;
+
+    --popover: 128 37% 18%;
+    --popover-foreground: 157 52% 94%;
+
+    --primary: 73 59% 50%;
+    --primary-foreground: 128 37% 12%;
+
+    --secondary: 128 21% 46%;
+    --secondary-foreground: 157 52% 94%;
+
+    --muted: 128 37% 22%;
+    --muted-foreground: 170 30% 76%;
+
+    --accent: 194 61% 66%;
+    --accent-foreground: 128 37% 12%;
+
+    --border: 128 37% 22%;
+    --input: 128 37% 22%;
+    --ring: 73 59% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
