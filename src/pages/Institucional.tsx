@@ -1,225 +1,270 @@
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Target, Eye, Users, Leaf, Award, Globe, AlertTriangle, Mail, MessageSquare, Send, User } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { 
+  Target, 
+  Eye, 
+  Leaf, 
+  Globe, 
+  AlertTriangle, 
+  Mail, 
+  Send, 
+  User, 
+  Truck, 
+  Mountain, 
+  Database, 
+  BarChart3,
+  CheckCircle2
+} from "lucide-react";
 import { toast } from "sonner";
 
 const Institucional = () => {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     // Simulación de envío
     setTimeout(() => {
       setLoading(false);
-      toast.success("Mensaje enviado correctamente. Nos pondremos en contacto pronto.");
+      // @ts-ignore
       e.target.reset();
+      toast.success("Mensaje enviado correctamente. Nos pondremos en contacto pronto.");
     }, 1500);
   };
 
   return (
-    <div className="container mx-auto px-4 py-24 animate-fade-in">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Sobre SID-Bio
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Sistema de Información de Descarbonización Bioceánica
-          </p>
-        </div>
+    <div className="container mx-auto px-4 pt-32 pb-24 animate-fade-in bg-slate-50/50">
+      
+      {/* --- HERO SECTION --- */}
+      <div className="max-w-5xl mx-auto mb-16 text-center">
+        {/* CAMBIO: Azul a Esmeralda */}
+        <span className="inline-block py-1 px-3 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold tracking-wider mb-4 uppercase">
+          Estrategia Provincial
+        </span>
+        <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          SID-Bio
+        </h1>
+        <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
+          Sistema de Información de Descarbonización para el <span className="text-emerald-700 font-semibold">Corredor Bioceánico de Capricornio</span>.
+        </p>
+      </div>
 
-        {/* Sección Misión y Visión */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card className="shadow-lg hover:shadow-glow transition-all duration-300">
+      <div className="max-w-6xl mx-auto space-y-16">
+        
+        {/* --- MISIÓN Y VISIÓN (Cards Modernas) --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Card className="border-none shadow-xl bg-gradient-to-br from-white to-emerald-50/30 hover:shadow-2xl transition-all duration-300 group">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="w-6 h-6 text-primary" />
-                Misión
-              </CardTitle>
+              {/* CAMBIO: Icono Azul a Teal (Verde azulado) para diferenciar */}
+              <div className="w-12 h-12 bg-teal-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Target className="w-6 h-6 text-teal-700" />
+              </div>
+              <CardTitle className="text-2xl font-bold text-slate-800">Nuestra Misión</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground leading-relaxed">
-                Proveer información estratégica y herramientas de análisis para la toma de decisiones
-                orientadas a la descarbonización del corredor bioceánico, promoviendo el uso de
-                tecnologías limpias en el transporte de carga y facilitando la transición hacia
-                una movilidad sostenible.
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Proveer una plataforma tecnológica integrada que centralice, procese y analice en tiempo real los datos de emisiones del transporte de carga, facilitando la toma de decisiones estratégicas para mitigar el impacto ambiental en el tramo jujeño del Corredor Bioceánico.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg hover:shadow-glow transition-all duration-300">
+          <Card className="border-none shadow-xl bg-gradient-to-br from-white to-emerald-50/30 hover:shadow-2xl transition-all duration-300 group">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Eye className="w-6 h-6 text-accent" />
-                Visión
-              </CardTitle>
+              <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Eye className="w-6 h-6 text-emerald-700" />
+              </div>
+              <CardTitle className="text-2xl font-bold text-slate-800">Nuestra Visión</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground leading-relaxed">
-                Ser la plataforma de referencia en la región para el monitoreo, análisis y
-                proyección de impactos ambientales y económicos del transporte bioceánico,
-                contribuyendo significativamente a los objetivos de descarbonización y desarrollo
-                sostenible de América del Sur.
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Consolidarnos como el sistema de referencia para la gestión ambiental logística, siendo claves para que la provincia de Jujuy alcance su meta de reducir un <strong>60% las emisiones para 2030</strong> y logre la <strong>carbono-neutralidad en 2050</strong>.
               </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* NUEVA SECCIÓN: ODS 13 */}
-        <Card className="shadow-lg mb-8 border-l-4 border-l-emerald-500 overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-10">
-            <Globe className="w-32 h-32" />
+        {/* --- EL PROBLEMA Y EL CONTEXTO --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Columna Izquierda: El Desafío */}
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
+              <AlertTriangle className="w-8 h-8 text-amber-500" />
+              El Desafío del Corredor
+            </h2>
+            <div className="prose prose-slate max-w-none text-slate-600 text-justify">
+              <p>
+                La puesta en marcha del <strong>Corredor Bioceánico de Capricornio</strong> representa una oportunidad económica histórica, pero conlleva un desafío ambiental crítico: un incremento masivo en la circulación de vehículos pesados dependientes de combustibles fósiles a través de la provincia de Jujuy.
+              </p>
+              <p>
+                Actualmente, la falta de sistemas integrados de medición impide conocer la huella de carbono real en tiempo real. La información se encuentra dispersa entre múltiples organismos, generando una "ceguera de datos" que dificulta la planificación de estrategias de mitigación efectivas y reactivas.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100 flex items-start gap-3">
+                {/* CAMBIO: Indigo a Verde Bosque */}
+                <Mountain className="w-8 h-8 text-green-600 shrink-0" />
+                <div>
+                  <h4 className="font-bold text-slate-800">Impacto en Ecosistemas</h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Amenaza directa a la biodiversidad de la Puna, Valles y Yungas debido a la contaminación atmosférica.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100 flex items-start gap-3">
+                <Truck className="w-8 h-8 text-amber-500 shrink-0" />
+                <div>
+                  <h4 className="font-bold text-slate-800">Emisiones Móviles</h4>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Aumento exponencial de CO₂ por flotas internacionales sin regulación unificada en el tramo provincial.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-2xl">
-              <Globe className="w-7 h-7 text-emerald-600" />
-              Marco de Referencia: ODS 13 - Acción por el Clima
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-orange-500" />
-                La Urgencia Global
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
-                El cambio climático es una amenaza real que evoluciona a un ritmo más rápido de lo previsto. 
-                Para limitar el calentamiento global a <strong>1,5 °C</strong>, las emisiones deben reducirse 
-                casi a la mitad para 2030. De no controlarse, los efectos intensificarán catástrofes naturales, 
-                afectarán economías enteras y echarán por tierra avances en desarrollo. El costo de la inacción 
-                supera con creces al de la acción inmediata.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground flex items-center gap-2">
-                <Leaf className="w-5 h-5 text-emerald-500" />
-                La Respuesta de SID-Bio
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed text-justify">
-                Alineados con el Acuerdo de París y la Agenda 2030, entendemos que la solución exige transformar 
-                sistemas de transporte e industriales. SID-Bio actúa como catalizador para esta transformación 
-                en el corredor bioceánico, proporcionando los datos necesarios para redirigir flujos financieros 
-                hacia la mitigación climática y garantizar un desarrollo resiliente.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
 
-        {/* Sección Quiénes Somos */}
-        <Card className="shadow-lg mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="w-6 h-6 text-success" />
-              Quiénes Somos
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-muted-foreground leading-relaxed">
-              SID-Bio es una iniciativa tecnológica desarrollada para apoyar la gestión ambiental
-              y económica del corredor bioceánico. Nuestro equipo combina experiencia en:
+          {/* Columna Derecha: La Solución SID-Bio */}
+          <div className="lg:col-span-5">
+            <Card className="bg-slate-900 text-white shadow-2xl overflow-hidden relative border border-slate-800">
+              {/* Decorative gradient: CAMBIO a verde esmeralda */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600 rounded-full blur-[100px] opacity-20 -mr-16 -mt-16"></div>
+              
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  {/* CAMBIO: Azul a Esmeralda claro */}
+                  <Database className="w-6 h-6 text-emerald-400" />
+                  La Solución SID-Bio
+                </CardTitle>
+                <CardDescription className="text-slate-400">
+                  Transformando datos dispersos en inteligencia climática
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6 relative z-10">
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" />
+                    <span className="text-sm text-slate-300">
+                      <strong>Centralización de Datos:</strong> Unificación de registros de consumo energético y tránsito de carga en un único tablero.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" />
+                    <span className="text-sm text-slate-300">
+                      <strong>Análisis Predictivo:</strong> Proyección de escenarios para evaluar el impacto antes de que ocurra.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" />
+                    <span className="text-sm text-slate-300">
+                      <strong>Soporte a la Carbono-Neutralidad:</strong> Herramienta clave para cumplir los compromisos del IPEGI.
+                    </span>
+                  </li>
+                </ul>
+
+                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700 mt-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-slate-400 uppercase">Meta Jujuy 2030</span>
+                    <span className="text-xs font-bold text-emerald-400">-60% Emisiones</span>
+                  </div>
+                  <div className="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <div className="bg-emerald-500 h-full w-[60%] animate-pulse"></div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* --- SECCIÓN COMPROMISO (Banner) --- */}
+        {/* CAMBIO: Gradiente de azules a verdes oscuros/profundos */}
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-emerald-900 to-teal-900 shadow-2xl">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2021&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+          <div className="relative z-10 px-8 py-16 text-center max-w-4xl mx-auto">
+            <Globe className="w-12 h-12 text-emerald-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Hacia una Logística Resiliente
+            </h2>
+            <p className="text-emerald-100 text-lg leading-relaxed">
+              "No podemos gestionar lo que no medimos. SID-Bio nace para iluminar el camino hacia un desarrollo que respete nuestros paisajes, nuestra salud y nuestro futuro, convirtiendo a Jujuy en un modelo de logística sostenible."
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-primary/5 rounded-lg">
-                <Leaf className="w-8 h-8 text-primary mb-2" />
-                <h3 className="font-semibold text-foreground mb-1">Sostenibilidad Ambiental</h3>
-                <p className="text-sm text-muted-foreground">
-                  Especialistas en mitigación de emisiones y energías renovables
-                </p>
-              </div>
-              <div className="p-4 bg-accent/5 rounded-lg">
-                <Award className="w-8 h-8 text-accent mb-2" />
-                <h3 className="font-semibold text-foreground mb-1">Tecnología e Innovación</h3>
-                <p className="text-sm text-muted-foreground">
-                  Desarrollo de sistemas de información y análisis de datos
-                </p>
-              </div>
-              <div className="p-4 bg-success/5 rounded-lg">
-                <Globe className="w-8 h-8 text-success mb-2" />
-                <h3 className="font-semibold text-foreground mb-1">Logística Internacional</h3>
-                <p className="text-sm text-muted-foreground">
-                  Expertos en corredores bioceánicos y transporte de carga
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Sección Compromiso */}
-        <Card className="shadow-lg bg-gradient-accent mb-8">
-          <CardContent className="pt-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-primary-foreground mb-4">
-                Nuestro Compromiso
-              </h2>
-              <p className="text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-                Trabajamos para transformar la información en acción, proporcionando datos precisos
-                y análisis profundos que impulsen decisiones estratégicas hacia un futuro más
-                limpio, eficiente y sostenible para el transporte bioceánico.
+        {/* --- CONTACTO (Diseño limpio) --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white rounded-3xl shadow-sm border border-emerald-100/50 p-8 md:p-12">
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Hablemos</h3>
+              <p className="text-slate-500">
+                ¿Interesado en colaborar con la descarbonización del corredor? ¿Necesitas acceso a datos para investigación?
               </p>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* NUEVA SECCIÓN: Formulario de Contacto */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <MessageSquare className="w-6 h-6 text-primary" />
-              Contáctanos
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <p className="text-muted-foreground">
-                  ¿Tienes alguna consulta sobre el proyecto o estás interesado en colaborar? 
-                  Completa el formulario y nuestro equipo se pondrá en contacto contigo a la brevedad.
-                </p>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <Mail className="w-5 h-5 text-primary" />
-                  <span>contacto@sid-bio.org</span>
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 group cursor-pointer">
+                {/* CAMBIO: Hover azul a verde */}
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                  <Mail className="w-5 h-5 text-slate-600 group-hover:text-emerald-600" />
                 </div>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <Globe className="w-5 h-5 text-primary" />
-                  <span>www.sid-bio.org</span>
+                <div>
+                  <p className="text-sm font-medium text-slate-900">Correo Electrónico</p>
+                  <p className="text-sm text-slate-500">contacto@sid-bio.jujuy.gob.ar</p>
                 </div>
               </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Nombre completo" className="pl-9" required />
-                  </div>
+              
+              <div className="flex items-center gap-4 group cursor-pointer">
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-teal-100 transition-colors">
+                  <BarChart3 className="w-5 h-5 text-slate-600 group-hover:text-teal-600" />
                 </div>
-                <div className="space-y-2">
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input type="email" placeholder="Correo electrónico" className="pl-9" required />
-                  </div>
+                <div>
+                  <p className="text-sm font-medium text-slate-900">Soporte Técnico</p>
+                  <p className="text-sm text-slate-500">soporte@sid-bio.org</p>
                 </div>
-                <div className="space-y-2">
-                    <textarea 
-                        className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        placeholder="Escribe tu mensaje aquí..."
-                        required
-                    />
-                </div>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Enviando...' : (
-                    <>
-                      Enviar Mensaje
-                      <Send className="w-4 h-4 ml-2" />
-                    </>
-                  )}
-                </Button>
-              </form>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Nombre completo</label>
+              <div className="relative">
+                <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                <Input placeholder="Juan Pérez" className="pl-9 bg-white focus-visible:ring-emerald-500" required />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Correo institucional</label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                <Input type="email" placeholder="nombre@empresa.com" className="pl-9 bg-white focus-visible:ring-emerald-500" required />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Mensaje</label>
+              <Textarea 
+                placeholder="¿Cómo podemos ayudarte?" 
+                className="min-h-[120px] bg-white resize-none focus-visible:ring-emerald-500" 
+                required 
+              />
+            </div>
+
+            {/* CAMBIO: Botón Verde */}
+            <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-6 shadow-lg shadow-emerald-900/10" disabled={loading}>
+              {loading ? 'Enviando...' : (
+                <span className="flex items-center gap-2">
+                  Enviar Mensaje <Send className="w-4 h-4" />
+                </span>
+              )}
+            </Button>
+          </form>
+        </div>
+
       </div>
     </div>
   );

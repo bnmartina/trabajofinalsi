@@ -20,14 +20,20 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  // Definición dinámica de ítems (Reportes solo aparece si hay sesión)
+  // Definición dinámica de ítems
+  // MODIFICACIÓN: Ahora Beneficios y Reportes solo aparecen si hay sesión iniciada
   const navItems = [
     { name: "Inicio", path: "/" },
     { name: "Simulador", path: "/simulador" },
     //{ name: "Mapas", path: "/mapas" },
     { name: "Hub Energético", path: "/hub-energetico" },
-    { name: "Beneficios", path: "/beneficios" },
-    ...(isAuthenticated ? [{ name: "Reportes", path: "/reportes" }] : []),
+    
+    // Aquí aplicamos la condición a ambos
+    ...(isAuthenticated ? [
+      { name: "Beneficios", path: "/beneficios" },
+      { name: "Reportes", path: "/reportes" }
+    ] : []),
+    
     { name: "Institucional", path: "/institucional" },
   ];
 
@@ -44,7 +50,7 @@ const Navbar = () => {
               className="h-10 w-10 object-contain transition-transform group-hover:scale-110"
               // Fallback por si la imagen no existe en tu carpeta public
               onError={(e) => {
-                const target = e.target as HTMLImageElement;
+                const target = e.target;
                 target.onerror = null; 
                 target.style.display = 'none';
               }}

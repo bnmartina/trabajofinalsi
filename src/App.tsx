@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext"; // IMPORTANTE: Importar desde el archivo compartido
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
 // Importación de componentes y páginas
 import Navbar from "./components/Navbar";
@@ -15,7 +15,7 @@ import Beneficios from "./pages/Beneficios";
 import Reportes from "./pages/Reportes";
 import Institucional from "./pages/Institucional";
 import NotFound from "./pages/NotFound";
-import Login from "./pages/login"; // Asegúrate que el nombre del archivo coincida (Login.jsx)
+import Login from "./pages/login";
 
 const queryClient = new QueryClient();
 
@@ -43,20 +43,30 @@ const App = () => (
             <Navbar />
             <Routes>
               <Route path="/" element={<Index />} />
+              
               <Route path="/login" element={
                 <PublicOnlyRoute>
                   <Login />
                 </PublicOnlyRoute>
               } />
+
               <Route path="/simulador" element={<Simulador />} />
               <Route path="/mapas" element={<Mapas />} />
               <Route path="/hub-energetico" element={<HubEnergetico />} />
-              <Route path="/beneficios" element={<Beneficios />} />
+
+              {/* AQUÍ ESTÁ EL CAMBIO: Beneficios ahora está protegido */}
+              <Route path="/beneficios" element={
+                <ProtectedRoute>
+                  <Beneficios />
+                </ProtectedRoute>
+              } />
+
               <Route path="/reportes" element={
                 <ProtectedRoute>
                   <Reportes />
                 </ProtectedRoute>
               } />
+
               <Route path="/institucional" element={<Institucional />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

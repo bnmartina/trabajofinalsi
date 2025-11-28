@@ -39,7 +39,7 @@ const Login = () => {
           </CardTitle>
           <CardDescription>
             {isLogin 
-              ? 'Ingresa tus credenciales para acceder a los reportes.' 
+              ? 'Ingresa tus credenciales para acceder a generación de reportes y beneficios.' 
               : 'Registra tu empresa u organismo para comenzar.'}
           </CardDescription>
         </CardHeader>
