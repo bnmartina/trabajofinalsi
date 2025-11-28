@@ -7,6 +7,10 @@ import { Truck, Zap, TrendingDown } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import Chart from "chart.js/auto";
+import { useMitigacionStore } from "@/stores/mitigacionStore";
+import { useNavigate } from "react-router-dom";
+
+const presets = [0, 20, 40, 60, 100];
 
 // --- TIPO DE REGISTRO AJUSTADO ---
 export type Registro = {
@@ -29,6 +33,9 @@ const EF_CO2_PER_L = 2.68;
 const EMISION_FACTOR_PER_KM = FUEL_L_PER_KM * EF_CO2_PER_L;
 
 const Simulador = () => {
+  const { mitigacion, setMitigacion } = useMitigacionStore();
+  const navigate = useNavigate();
+
   const [periodo, setPeriodo] = useState("dia");
   const [porcentajeVerde, setPorcentajeVerde] = useState(20);
   const [numVehiculos, setNumVehiculos] = useState(150);
@@ -106,9 +113,13 @@ const Simulador = () => {
     const electricos = Math.round((porcentajeVerde / 100) * numVehiculos);
     const kmPromedio = totalKm / numVehiculos;
     const kmElectricosTotales = kmPromedio * electricos;
-    const emisionesConElectrificacion = (totalKm - kmElectricosTotales) * EMISION_FACTOR_PER_KM;
-    const mitigacion = emisionesDiesel - emisionesConElectrificacion;
-    const reduccionPct = (mitigacion / emisionesDiesel) * 100;
+
+    const emisionesConElectrificacion =
+      (totalKm - kmElectricosTotales) * EMISION_FACTOR_PER_KM;
+
+    const mitigacion = Math.abs(emisionesDiesel - emisionesConElectrificacion);
+
+    const reduccionPct = Math.abs((mitigacion / emisionesDiesel) * 100);
 
     setDatosGenerados({
       registros: regs.length,
@@ -237,7 +248,7 @@ const Simulador = () => {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Porcentaje de flota electrificada</label>
-
+                
                 <Slider
                   value={[porcentajeVerde]}
                   onValueChange={(v) => setPorcentajeVerde(v[0])}
@@ -257,17 +268,15 @@ const Simulador = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium">Cantidad de vehículos:</span>
-                <span className="text-xl font-bold text-primary">{numVehiculos}</span>
+                {/*<span className="text-xl font-bold text-primary">{numVehiculos}</span>*/}
+                <input
+                  type="number"
+                  className="w-full p-2 border rounded-md bg-background"
+                  value={numVehiculos}
+                  onChange={(e) => setNumVehiculos(Number(e.target.value))}
+                  min={0}
+                />
               </div>
-
-              <Slider
-                value={[numVehiculos]}
-                onValueChange={(v) => setNumVehiculos(v[0])}
-                min={1}
-                max={1000}
-                step={1}
-                className="w-3/4 mx-auto"
-              />
             </div>
 
             <Button
@@ -285,6 +294,7 @@ const Simulador = () => {
         {datosGenerados && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in-up">
+              {/* Total camiones */}
               <Card className="shadow-md hover:shadow-glow transition-shadow duration-300">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
@@ -293,12 +303,15 @@ const Simulador = () => {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Total camiones</p>
-                      <p className="text-2xl font-bold text-foreground">{datosGenerados.registros}</p>
+                      <p className="text-2xl font-bold text-foreground">
+                        {datosGenerados.registros}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Emisiones Diesel */}
               <Card className="shadow-md hover:shadow-glow transition-shadow duration-300">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
@@ -307,12 +320,15 @@ const Simulador = () => {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Emisiones Diesel (kg)</p>
-                      <p className="text-lg font-bold text-foreground">{datosGenerados.emisionesDiesel.toFixed(2)} kg CO₂</p>
+                      <p className="text-lg font-bold text-foreground">
+                        {datosGenerados.emisionesDiesel.toFixed(2)} kg CO₂
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Emisiones proyectadas */}
               <Card className="shadow-md hover:shadow-glow transition-shadow duration-300">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3">
@@ -321,24 +337,42 @@ const Simulador = () => {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Emisiones proyectadas</p>
-                      <p className="text-lg font-bold text-foreground">{datosGenerados.emisionesConElectrificacion.toFixed(2)} kg CO₂</p>
+                      <p className="text-lg font-bold text-foreground">
+                        {datosGenerados.emisionesConElectrificacion.toFixed(2)} kg CO₂
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* CO₂ mitigado + botón */}
               <div className="col-span-full md:col-span-2 lg:col-span-1">
                 <Card className="shadow-md hover:shadow-glow transition-shadow duration-300 bg-gradient-accent">
-                  <CardContent className="pt-6">
+                  <CardContent className="pt-6 space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-3 bg-card rounded-lg">
+                      <div className="p-3 bg-white/30 rounded-lg">
                         <TrendingDown className="w-6 h-6 text-primary" />
                       </div>
                       <div>
                         <p className="text-sm text-primary-foreground">CO₂ Mitigado total (kg)</p>
-                        <p className="text-2xl font-bold text-primary-foreground">{datosGenerados.mitigacion.toFixed(2)} kg</p>
+                        <p className="text-2xl font-bold text-primary-foreground">
+                          {datosGenerados.mitigacion.toFixed(2)} kg
+                        </p>
                       </div>
                     </div>
+
+                    {/* Botón*/}
+                    {porcentajeVerde !== null && (
+                      <button
+                        onClick={() => {
+                          window.location.href = `/Mapas?mitigacion=${porcentajeVerde}`;
+                        }}
+                        className="w-full py-2 rounded-lg bg-blue-100 text-blue-700 font-medium 
+                                  hover:bg-blue-100 transition-colors duration-200 shadow-sm"
+                      >
+                        Ver impacto en el mapa →
+                      </button>
+                    )}
                   </CardContent>
                 </Card>
               </div>

@@ -24,6 +24,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Inicio", path: "/" },
     { name: "Simulador", path: "/simulador" },
+    //{ name: "Mapas", path: "/mapas" },
     { name: "Hub Energético", path: "/hub-energetico" },
     { name: "Beneficios", path: "/beneficios" },
     ...(isAuthenticated ? [{ name: "Reportes", path: "/reportes" }] : []),

@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext"; // IMPORTANTE: Im
 import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Simulador from "./pages/Simulador";
+import Mapas from "./pages/Mapas";
 import HubEnergetico from "./pages/HubEnergetico";
 import Beneficios from "./pages/Beneficios";
 import Reportes from "./pages/Reportes";
@@ -48,6 +49,7 @@ const App = () => (
                 </PublicOnlyRoute>
               } />
               <Route path="/simulador" element={<Simulador />} />
+              <Route path="/mapas" element={<Mapas />} />
               <Route path="/hub-energetico" element={<HubEnergetico />} />
               <Route path="/beneficios" element={<Beneficios />} />
               <Route path="/reportes" element={
