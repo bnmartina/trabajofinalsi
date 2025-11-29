@@ -38,9 +38,7 @@ const Institucional = () => {
   return (
     <div className="container mx-auto px-4 pt-32 pb-24 animate-fade-in bg-slate-50/50">
       
-      {/* --- HERO SECTION --- */}
       <div className="max-w-5xl mx-auto mb-16 text-center">
-        {/* CAMBIO: Azul a Esmeralda */}
         <span className="inline-block py-1 px-3 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold tracking-wider mb-4 uppercase">
           Estrategia Provincial
         </span>
@@ -54,11 +52,10 @@ const Institucional = () => {
 
       <div className="max-w-6xl mx-auto space-y-16">
         
-        {/* --- MISIÓN Y VISIÓN (Cards Modernas) --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card className="border-none shadow-xl bg-gradient-to-br from-white to-emerald-50/30 hover:shadow-2xl transition-all duration-300 group">
             <CardHeader>
-              {/* CAMBIO: Icono Azul a Teal (Verde azulado) para diferenciar */}
+           
               <div className="w-12 h-12 bg-teal-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Target className="w-6 h-6 text-teal-700" />
               </div>
@@ -86,10 +83,8 @@ const Institucional = () => {
           </Card>
         </div>
 
-        {/* --- EL PROBLEMA Y EL CONTEXTO --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Columna Izquierda: El Desafío */}
           <div className="lg:col-span-7 space-y-6">
             <h2 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
               <AlertTriangle className="w-8 h-8 text-amber-500" />
@@ -106,7 +101,7 @@ const Institucional = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
               <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100 flex items-start gap-3">
-                {/* CAMBIO: Indigo a Verde Bosque */}
+         
                 <Mountain className="w-8 h-8 text-green-600 shrink-0" />
                 <div>
                   <h4 className="font-bold text-slate-800">Impacto en Ecosistemas</h4>
@@ -127,15 +122,13 @@ const Institucional = () => {
             </div>
           </div>
 
-          {/* Columna Derecha: La Solución SID-Bio */}
           <div className="lg:col-span-5">
             <Card className="bg-slate-900 text-white shadow-2xl overflow-hidden relative border border-slate-800">
-              {/* Decorative gradient: CAMBIO a verde esmeralda */}
+
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600 rounded-full blur-[100px] opacity-20 -mr-16 -mt-16"></div>
               
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center gap-2">
-                  {/* CAMBIO: Azul a Esmeralda claro */}
                   <Database className="w-6 h-6 text-emerald-400" />
                   La Solución SID-Bio
                 </CardTitle>
@@ -179,8 +172,6 @@ const Institucional = () => {
           </div>
         </div>
 
-        {/* --- SECCIÓN COMPROMISO (Banner) --- */}
-        {/* CAMBIO: Gradiente de azules a verdes oscuros/profundos */}
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-emerald-900 to-teal-900 shadow-2xl">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2021&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
           <div className="relative z-10 px-8 py-16 text-center max-w-4xl mx-auto">
@@ -194,7 +185,6 @@ const Institucional = () => {
           </div>
         </div>
 
-        {/* --- CONTACTO (Diseño limpio) --- */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white rounded-3xl shadow-sm border border-emerald-100/50 p-8 md:p-12">
           <div className="space-y-8">
             <div>
@@ -206,7 +196,6 @@ const Institucional = () => {
 
             <div className="space-y-6">
               <div className="flex items-center gap-4 group cursor-pointer">
-                {/* CAMBIO: Hover azul a verde */}
                 <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
                   <Mail className="w-5 h-5 text-slate-600 group-hover:text-emerald-600" />
                 </div>
@@ -254,7 +243,6 @@ const Institucional = () => {
               />
             </div>
 
-            {/* CAMBIO: Botón Verde */}
             <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-6 shadow-lg shadow-emerald-900/10" disabled={loading}>
               {loading ? 'Enviando...' : (
                 <span className="flex items-center gap-2">

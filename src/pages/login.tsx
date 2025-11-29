@@ -47,7 +47,6 @@ const Login = () => {
           <form onSubmit={handleAuth} className="space-y-4">
             {!isLogin && (
               <div className="relative">
-                {/* Iconos con tono verde sutil */}
                 <User className="absolute left-3 top-3 h-5 w-5 text-emerald-600/50" />
                 <Input type="text" placeholder="Nombre completo o Razón Social" className="pl-10 focus:border-emerald-500" required />
               </div>

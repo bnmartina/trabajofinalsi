@@ -161,7 +161,6 @@ const Beneficios = () => {
           </p>
         </div>
 
-        {/* TARJETAS DE RESUMEN (KPIs) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="shadow-lg hover:shadow-glow transition-all duration-300 border-l-4 border-l-primary bg-gradient-to-br from-white to-blue-50">
             <CardContent className="pt-6">
@@ -212,10 +211,8 @@ const Beneficios = () => {
           </Card>
         </div>
 
-        {/* GRÁFICOS */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
-          {/* Gráfico de Barras: Comparativa */}
           <Card className="shadow-md hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -248,7 +245,6 @@ const Beneficios = () => {
             </CardContent>
           </Card>
 
-          {/* Gráfico de Líneas: Proyección */}
           <Card className="shadow-md hover:shadow-lg transition-shadow">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

@@ -297,7 +297,7 @@ const HubEnergetico = () => {
 
   return (
     <div className="container mx-auto px-4 pt-32 pb-20 min-h-screen animate-fade-in">
-      {/* HEADER */}
+    
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
           Hubs Energéticos
@@ -307,7 +307,6 @@ const HubEnergetico = () => {
         </p>
       </div>
 
-      {/* CONTROLES */}
       <div className="flex flex-wrap justify-center gap-4 mb-12">
         <Button
           size="lg"
@@ -331,7 +330,6 @@ const HubEnergetico = () => {
         </Button>
       </div>
 
-      {/* GRÁFICO FLOTANTE */}
       {mostrarGrafico && (
         <div className="max-w-md mx-auto mb-16 animate-in fade-in zoom-in-95">
           <Card className="shadow-xl">
@@ -350,7 +348,6 @@ const HubEnergetico = () => {
         </div>
       )}
 
-      {/* HUBS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto">
         {Object.entries(hubs).map(([key, hub]) => {
           const porcentaje = Math.round((hub.energia_disponible / hub.capacidad) * 100);
@@ -370,10 +367,8 @@ const HubEnergetico = () => {
               </CardHeader>
 
               <CardContent className="pt-6 bg-slate-50">
-                {/* ZONA VISUAL DE CARGA */}
                 <div className="relative h-[500px] bg-slate-200 rounded-xl border-2 border-dashed border-slate-300 overflow-hidden mb-6 shadow-inner">
                   
-                  {/* Fondo: Puestos de Carga */}
                   <div className="absolute inset-0 flex flex-col pt-[100px] pl-[80px] opacity-10 pointer-events-none">
                      {Array.from({length: hub.maxPuestos}).map((_, i) => (
                         <div key={i} className="h-[120px] border-b-2 border-slate-400 w-full flex items-center">
@@ -382,7 +377,6 @@ const HubEnergetico = () => {
                      ))}
                   </div>
 
-                  {/* CAMIONES ANIMADOS */}
                   {hub.cargando.map((c, i) => (
                     <div
                       key={c.id}
@@ -393,7 +387,6 @@ const HubEnergetico = () => {
                         zIndex: 10 + i,
                       }}
                     >
-                      {/* IMAGEN DEL CAMIÓN (Con fallback a ícono si falla) */}
                       <div className="relative group">
                           <img
                             src="/camion.png"
@@ -405,13 +398,11 @@ const HubEnergetico = () => {
                                 e.currentTarget.nextElementSibling?.classList.remove('hidden');
                             }}
                           />
-                          {/* FALLBACK: Ícono de camión si no hay imagen */}
                           <div className="hidden bg-blue-600 text-white p-4 rounded-lg shadow-lg w-48 h-24 flex-col items-center justify-center gap-2">
                              <Truck className="w-10 h-10" />
                              <span className="text-xs font-bold">{c.patente}</span>
                           </div>
 
-                          {/* DATOS SUPERPUESTOS */}
                           <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center -mt-6">
                             <div className="bg-black/80 text-white px-3 py-1 rounded text-xs font-bold tracking-wider shadow-lg border border-white/20">
                               {c.patente}
@@ -429,7 +420,6 @@ const HubEnergetico = () => {
                     </div>
                   ))}
 
-                  {/* INDICADOR DE COLA */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur px-6 py-3 rounded-lg shadow-lg border border-slate-200 z-50">
                     <p className="text-lg font-bold text-primary flex items-center gap-2">
                        <span className={`w-3 h-3 rounded-full ${hub.cola.length > 0 ? 'bg-orange-500 animate-pulse' : 'bg-green-500'}`}></span>
@@ -438,7 +428,6 @@ const HubEnergetico = () => {
                   </div>
                 </div>
 
-                {/* NOTIFICACIONES */}
                 {hub.notificaciones.length > 0 && (
                   <div className="space-y-2 bg-white p-3 rounded-lg border shadow-sm">
                     <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Registro de Actividad</div>

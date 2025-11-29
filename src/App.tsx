@@ -55,7 +55,6 @@ const App = () => (
               <Route path="/mapas" element={<Mapas />} />
               <Route path="/hub-energetico" element={<HubEnergetico />} />
 
-              {/* AQUÍ ESTÁ EL CAMBIO: Beneficios ahora está protegido */}
               <Route path="/beneficios" element={
                 <ProtectedRoute>
                   <Beneficios />

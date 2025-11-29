@@ -56,7 +56,6 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* --- NAVEGACIÓN DESKTOP --- */}
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <Link key={item.path} to={item.path}>
@@ -69,10 +68,8 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {/* Separador Visual */}
             <div className="h-6 w-px bg-border mx-2"></div>
 
-            {/* Botones de Acción (Login/Logout) */}
             {isAuthenticated ? (
                <Button 
                  variant="destructive" 
@@ -95,7 +92,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* --- MENÚ MÓVIL (HAMBURGUESA) --- */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
@@ -105,7 +101,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* --- DESPLEGABLE MÓVIL --- */}
         {isOpen && (
           <div className="md:hidden py-4 animate-fade-in border-t border-border bg-card absolute left-0 right-0 px-4 shadow-lg">
             <div className="flex flex-col gap-2">

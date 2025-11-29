@@ -200,7 +200,6 @@ export default function Mapas() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 grid grid-cols-2 gap-2">
-          {/* Mapa Base */}
           <div className="border rounded overflow-hidden relative">
             <div className="p-2 bg-white/80 border-b">
               <strong>Sin mitigación — RCP8.5 (2050)</strong>
@@ -219,7 +218,6 @@ export default function Mapas() {
             </div>
           </div>
 
-          {/* Mapa Mitigado */}
           <div className="border rounded overflow-hidden relative">
             <div className="p-2 bg-white/80 border-b">
               <strong>Escenario mitigado — {mitigacion}% reducción (2050)</strong>
@@ -239,7 +237,6 @@ export default function Mapas() {
           </div>
         </div>
 
-        {/* Columna derecha: gráfico y leyenda */}
         <div className="border rounded p-3 bg-white h-[500px] flex flex-col">
           <h3 className="text-sm font-medium mb-2">Resumen de Anomalías Térmicas</h3>
 

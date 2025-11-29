@@ -212,7 +212,6 @@ const Reportes = () => {
   return (
     <div className="container mx-auto px-4 pt-32 pb-12 max-w-7xl animate-fade-in">
       
-      {/* Header + Rango */}
       <div className="flex justify-between items-start mb-10">
         <div>
           <h1 className="text-5xl font-bold mb-3">Reportes SID-Bio</h1>
@@ -226,7 +225,6 @@ const Reportes = () => {
         </div>
       </div>
 
-      {/* Filtros + Export */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
         <div>
           <p className="text-lg font-semibold mb-3">Filtrar por empresa:</p>
@@ -243,7 +241,6 @@ const Reportes = () => {
         </div>
       </div>
 
-      {/* KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
         <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-300">
           <CardHeader><CardTitle className="flex items-center gap-3 text-green-800"><Trees className="w-10 h-10" /> CO₂ Ahorrado</CardTitle><p className="text-sm opacity-80">{rangoFechas}</p></CardHeader>
@@ -259,7 +256,6 @@ const Reportes = () => {
         </Card>
       </div>
 
-      {/* Gráficos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
         <Card>
           <CardHeader><CardTitle>Distribución de Flota</CardTitle></CardHeader>
@@ -292,7 +288,6 @@ const Reportes = () => {
         </Card>
       </div>
 
-      {/* GRÁFICO MENSUAL */}
       {dataMensual.length > 0 && (
         <Card className="mb-12">
           <CardHeader>

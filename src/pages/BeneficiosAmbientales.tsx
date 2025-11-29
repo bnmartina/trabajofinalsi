@@ -88,7 +88,6 @@ const BeneficiosAmbientales = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch h-[650px]">
           
-          {/* --- COLUMNA IZQUIERDA: LISTA INTERACTIVA --- */}
           <div className="lg:col-span-5 flex flex-col gap-3 h-full overflow-y-auto pr-2 custom-scrollbar">
             {environmentalBenefits.map((benefit) => {
               const Icon = benefit.icon;
@@ -107,12 +106,9 @@ const BeneficiosAmbientales = () => {
                   `}
                 >
                   <div className="flex items-center gap-4">
-                    {/* Icono */}
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors shrink-0 ${isActive ? benefit.bg : 'bg-slate-100 group-hover:bg-slate-50'}`}>
                       <Icon className={`w-6 h-6 ${isActive ? benefit.color : 'text-slate-500'}`} />
                     </div>
-                    
-                    {/* Texto */}
                     <div className="flex-1 min-w-0">
                       <h3 className={`font-bold text-lg transition-colors truncate ${isActive ? 'text-slate-900' : 'text-slate-700'}`}>
                         {benefit.title}
@@ -121,8 +117,6 @@ const BeneficiosAmbientales = () => {
                         {benefit.short}
                       </p>
                     </div>
-
-                    {/* Flecha indicadora */}
                     <ArrowRight className={`w-5 h-5 text-emerald-500 transition-all duration-300 shrink-0 ${isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} />
                   </div>
                 </div>
@@ -130,11 +124,9 @@ const BeneficiosAmbientales = () => {
             })}
           </div>
 
-          {/* --- COLUMNA DERECHA: DETALLE DINÁMICO --- */}
           <div className="lg:col-span-7 h-full relative group perspective-1000">
             <Card className="h-full border-none shadow-2xl bg-slate-900 text-white relative overflow-hidden transition-all duration-500 rounded-3xl flex flex-col">
               
-              {/* IMAGEN DE FONDO CON OVERLAY */}
               <div className="absolute inset-0 z-0">
                  <img 
                     src={activeBenefit.image} 
@@ -144,7 +136,6 @@ const BeneficiosAmbientales = () => {
                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/30"></div>
               </div>
 
-              {/* Decoración de fondo dinámica */}
               <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-20 -mr-32 -mt-32 transition-colors duration-700 z-0
                 ${activeBenefit.id === 'huella' ? 'bg-slate-500' : 
                   activeBenefit.id === 'salud' ? 'bg-cyan-500' :
@@ -168,7 +159,6 @@ const BeneficiosAmbientales = () => {
 
               <CardContent className="relative z-10 pl-12 pr-16 pb-16 flex-1 flex flex-col justify-end">
                 
-                {/* Barra de progreso visual decorativa */}
                 <div className="w-24 h-1.5 bg-white/20 rounded-full mb-8 overflow-hidden">
                   <div key={activeBenefit.id} className="h-full bg-emerald-400 rounded-full w-0 animate-[progress_1s_ease-out_forwards]"></div>
                 </div>
@@ -177,7 +167,6 @@ const BeneficiosAmbientales = () => {
                   {activeBenefit.description}
                 </p>
 
-                {/* Footer contextual específico */}
                 <div className="mt-12 pt-8 border-t border-white/10 flex items-center gap-4 animate-fade-in-up delay-300">
                   <div className="bg-emerald-500/20 p-3 rounded-full backdrop-blur-sm border border-emerald-500/30">
                     <HeartPulse className="w-6 h-6 text-emerald-300" />

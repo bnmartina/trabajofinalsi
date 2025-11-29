@@ -212,11 +212,9 @@ const Simulador = () => {
     renderCharts();
   }, [datosGenerados]);
 
-  // --- RENDERIZADO VISUAL ---
   return (
     <div className="container mx-auto px-4 pt-32 pb-24 animate-fade-in">
       
-      {/* HEADER */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
           Simulador de Tránsito Bioceánico
@@ -228,7 +226,6 @@ const Simulador = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         
-        {/* COLUMNA IZQUIERDA: CONTROLES */}
         <div className="lg:col-span-1 space-y-6">
           <Card className="shadow-xl border-t-4 border-t-primary">
             <CardHeader>
@@ -239,7 +236,6 @@ const Simulador = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               
-              {/* Slider Porcentaje */}
               <div className="space-y-3">
                 <div className="flex justify-between">
                     <label className="text-sm font-medium">Electrificación</label>
@@ -257,7 +253,6 @@ const Simulador = () => {
                 </div>
               </div>
 
-              {/* Input Cantidad */}
               <div className="space-y-2">
                 <label className="text-sm font-medium">Volumen de Vehículos</label>
                 <div className="flex items-center gap-2">
@@ -272,7 +267,6 @@ const Simulador = () => {
                 </div>
               </div>
 
-              {/* Select Periodo */}
               <div className="space-y-2">
                 <label className="text-sm font-medium">Periodo de Análisis</label>
                 <select
@@ -301,7 +295,6 @@ const Simulador = () => {
             </CardContent>
           </Card>
 
-          {/* Tips Card */}
           <Card className="bg-blue-50 border-blue-200">
              <CardContent className="pt-6 flex gap-4">
                 <div className="bg-blue-200 p-2 rounded-full h-fit">
@@ -317,10 +310,8 @@ const Simulador = () => {
           </Card>
         </div>
 
-        {/* COLUMNA DERECHA: RESULTADOS */}
         <div className="lg:col-span-2 space-y-6">
            
-           {/* KPIs */}
            {datosGenerados ? (
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-4">
                 <Card className="bg-gradient-to-br from-red-50 to-white border-l-4 border-l-red-500 shadow-sm">
@@ -352,9 +343,6 @@ const Simulador = () => {
                             <div className="p-2 bg-green-100 rounded text-green-600"><Leaf className="w-5 h-5" /></div>
                         </div>
                         
-                        {/* ==================================================== */}
-                        {/* BOTÓN AGREGADO AQUÍ PARA MANTENER LA FUNCIONALIDAD */}
-                        {/* ==================================================== */}
                         <div className="mt-4">
                              <button
                                 onClick={() => navigate(`/Mapas?mitigacion=${porcentajeVerde}`)}
@@ -365,8 +353,6 @@ const Simulador = () => {
                                 Ver impacto en el mapa →
                               </button>
                         </div>
-                        {/* ==================================================== */}
-
                     </CardContent>
                 </Card>
              </div>
@@ -376,7 +362,6 @@ const Simulador = () => {
              </div>
            )}
 
-           {/* GRÁFICOS */}
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="shadow-md">
                  <CardHeader className="pb-2">
@@ -405,7 +390,6 @@ const Simulador = () => {
               </Card>
            </div>
 
-           {/* DATASET TABLE PREVIEW */}
            <Card className="shadow-md">
               <CardHeader className="flex flex-row items-center justify-between">
                  <CardTitle className="text-lg">Registro de Datos Generados</CardTitle>
