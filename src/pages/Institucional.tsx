@@ -26,7 +26,6 @@ const Institucional = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // Simulación de envío
     setTimeout(() => {
       setLoading(false);
       // @ts-ignore

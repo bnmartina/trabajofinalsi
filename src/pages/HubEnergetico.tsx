@@ -9,20 +9,17 @@ import {
   BarChart3,
   Play,
   Pause,
-  Truck // Importamos Truck para el fallback si no hay imagen
+  Truck 
 } from "lucide-react";
 
-// [IMPORTANTE] Descomenta esta línea en tu proyecto local para usar tu base de datos real
+
 // import { supabase } from "@/integrations/supabase/client";
 
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-// Registro de componentes de gráficos
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// --- MOCK DE SUPABASE PARA VISTA PREVIA ---
-// (Elimina o comenta esto cuando uses la importación real de arriba)
 const supabase = {
   from: () => ({
     select: () => ({
@@ -33,7 +30,7 @@ const supabase = {
     })
   })
 };
-// -------------------------------------------
+
 
 interface Camion {
   id: string;
@@ -59,7 +56,6 @@ interface HubData {
 }
 
 const HubEnergetico = () => {
-  // Estado inicial de los Hubs
   const [hubs, setHubs] = useState<Record<string, HubData>>({
     jama: {
       nombre: "Hub Paso de Jama - Cauchari",
@@ -86,11 +82,9 @@ const HubEnergetico = () => {
   const [simulacionActiva, setSimulacionActiva] = useState(false);
   const [mostrarGrafico, setMostrarGrafico] = useState(false);
 
-  // --- LOGICA DE CARGA DE DATOS ---
   const cargarCamiones = async () => {
     let camiones: Camion[] = [];
 
-    // 1. Intentar cargar de Supabase
     try {
       const { data, error } = await supabase
         .from("dataset" as any)
@@ -115,7 +109,6 @@ const HubEnergetico = () => {
       console.log("Error conectando a Supabase, intentando offline...");
     }
 
-    // 2. Fallback: LocalStorage (Modo Offline)
     if (camiones.length === 0) {
       const local = localStorage.getItem("simulacion_offline");
       if (local) {
@@ -139,7 +132,7 @@ const HubEnergetico = () => {
       }
     }
 
-    // 3. Fallback: Datos Dummy (Para demostración si todo lo demás falla)
+    
     if (camiones.length === 0) {
         camiones = Array.from({ length: 15 }).map((_, i) => ({
             id: `dummy-${i}`,
@@ -151,7 +144,6 @@ const HubEnergetico = () => {
         }));
     }
 
-    // Distribución aleatoria entre Hubs
     const jamaCola: Camion[] = [];
     const pongoCola: Camion[] = [];
 
@@ -170,7 +162,6 @@ const HubEnergetico = () => {
     cargarCamiones();
   }, []);
 
-  // --- MOTOR DE SIMULACIÓN ---
   useEffect(() => {
     if (!simulacionActiva) return;
 
@@ -184,7 +175,6 @@ const HubEnergetico = () => {
           const porcentaje = (hub.energia_disponible / hub.capacidad) * 100;
           const critico = porcentaje < 30;
 
-          // Generar Alerta Crítica
           if (critico && !hub.notificaciones.some(n => n.includes("crítica"))) {
             hub.notificaciones = [
               `ALERTA: Energía crítica (${porcentaje.toFixed(1)}%)`,
@@ -192,7 +182,6 @@ const HubEnergetico = () => {
             ];
           }
 
-          // Lógica de Entrada (Cola -> Cargando)
           while (hub.cargando.length < hub.maxPuestos && hub.cola.length > 0) {
             const camion = { ...hub.cola[0] };
             if (hub.energia_disponible < camion.kwatt_carga) break;
@@ -200,25 +189,22 @@ const HubEnergetico = () => {
             hub.cola = hub.cola.slice(1);
 
             camion.estadoVisual = "entrando";
-            camion.x = 600; // Posición inicial (derecha fuera de pantalla)
-            camion.y = 100 + hub.cargando.length * 120; // Espaciado vertical
+            camion.x = 600; 
+            camion.y = 100 + hub.cargando.length * 120; 
             camion.nivel = hub.cargando.length;
 
             hub.cargando = [...hub.cargando, camion];
             hub.progreso = [...hub.progreso, 0];
           }
 
-          // Actualización de estado (Movimiento y Carga)
           hub.cargando = hub.cargando.map((c, i) => {
             const camion = { ...c };
 
-            // Fase 1: Entrando
             if (camion.estadoVisual === "entrando") {
               camion.x -= 20; // Velocidad de entrada
               if (camion.x <= 80) camion.estadoVisual = "cargando";
             }
 
-            // Fase 2: Cargando
             if (camion.estadoVisual === "cargando") {
               const nuevoProgreso = Math.min(hub.progreso[i] + 1.5, 100); // Velocidad de carga
               hub.progreso[i] = nuevoProgreso;
@@ -230,16 +216,14 @@ const HubEnergetico = () => {
               }
             }
 
-            // Fase 3: Saliendo
             if (camion.estadoVisual === "saliendo") {
               camion.x -= 25; // Velocidad de salida
-              camion.opacity -= 0.05; // Desvanecimiento
+              camion.opacity -= 0.05; 
             }
 
             return camion;
           });
 
-          // Limpieza de camiones que terminaron
           const indicesBorrar = hub.cargando
             .map((c, i) => (c.opacity <= 0 ? i : -1))
             .filter(i => i !== -1)
@@ -260,7 +244,6 @@ const HubEnergetico = () => {
     return () => clearInterval(interval);
   }, [simulacionActiva]);
 
-  // --- BOTONES DE CONTROL ---
   const recargarHub25 = () => {
     setHubs(prev => {
       const newState = { ...prev };
@@ -283,7 +266,6 @@ const HubEnergetico = () => {
     });
   };
 
-  // --- DATOS PARA GRÁFICO ---
   const totalCamiones = Object.values(hubs).reduce((a, h) => a + h.cola.length + h.cargando.length, 0);
   const fullCount = Object.values(hubs).reduce((a, h) => a + h.cola.filter(c => c.tipo === "full").length + h.cargando.filter(c => c.tipo === "full").length, 0);
 
@@ -393,7 +375,7 @@ const HubEnergetico = () => {
                             alt="Camión"
                             className="w-56 h-auto object-contain drop-shadow-2xl"
                             onError={(e) => {
-                                // Si la imagen falla, ocultamos img y mostramos un div con ícono
+                             
                                 e.currentTarget.style.display = 'none';
                                 e.currentTarget.nextElementSibling?.classList.remove('hidden');
                             }}

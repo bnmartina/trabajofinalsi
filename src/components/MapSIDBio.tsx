@@ -15,11 +15,9 @@ const MapSIDBio = () => {
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-    // Hubs
     L.marker([-24.37121, -65.12044]).addTo(map).bindPopup("Hub 1 - Finca El Pongo");
     L.marker(destino).addTo(map).bindPopup("Hub 2 - Cauchari");
 
-    // Traer ruta de OSRM
     const url = `https://router.project-osrm.org/route/v1/driving/${origen[1]},${origen[0]};${destino[1]},${destino[0]}?overview=full&geometries=geojson`;
 
     fetch(url)
@@ -27,10 +25,8 @@ const MapSIDBio = () => {
       .then(data => {
         const coords = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
 
-        // Dibujar ruta
         const polyline = L.polyline(coords, { color: "#2d622e", weight: 4 }).addTo(map);
 
-        // Ajustar mapa automáticamente al bounds de la ruta
         map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
 
         // ---------- CAMIÓN ----------

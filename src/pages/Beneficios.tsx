@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { DollarSign, Clock, TrendingUp, BarChart, Leaf } from "lucide-react";
 
-// [IMPORTANTE] Descomenta esto en tu proyecto local
 // import { supabase } from "@/integrations/supabase/client";
 
 import {
@@ -18,7 +17,6 @@ import {
   Line,
 } from "recharts";
 
-// --- MOCK SUPABASE (Eliminar en local) ---
 const supabase = {
   from: () => ({
     select: () => Promise.resolve({ data: null, error: "Mock Error" })
@@ -36,7 +34,6 @@ const Beneficios = () => {
   const cargarBeneficios = async () => {
     let data: any[] = [];
 
-    // 1. Intentar Supabase
     try {
       const response = await supabase.from("dataset").select("*");
       if (response.data && response.data.length > 0) {
@@ -46,7 +43,6 @@ const Beneficios = () => {
       console.log("Supabase no disponible, buscando local...");
     }
 
-    // 2. Fallback LocalStorage (Conecta con el Simulador)
     if (data.length === 0) {
       const local = localStorage.getItem("simulacion_offline");
       if (local) {
@@ -56,9 +52,8 @@ const Beneficios = () => {
       }
     }
 
-    // 3. Fallback Datos Dummy (Si no hay nada de nada)
     if (data.length === 0) {
-       // Generamos datos falsos para que no se vea vacío
+     
        data = Array.from({ length: 50 }).map((_, i) => ({
           tipo: i % 3 === 0 ? "full" : i % 2 === 0 ? "hibrido" : "diesel"
        }));
@@ -68,8 +63,8 @@ const Beneficios = () => {
   };
 
   const procesarDatos = (data: any[]) => {
-      // Calcular beneficios económicos
-      const salarioPorHora = 2500; // Pesos argentinos aprox
+     
+      const salarioPorHora = 2500;
       let beneficioTotal = 0;
       let beneficioHibridos = 0;
       let beneficioFull = 0;
@@ -81,7 +76,7 @@ const Beneficios = () => {
       };
 
       data.forEach((registro: any) => {
-        // Normalizar tipo (a veces viene mayuscula/minuscula)
+       
         const tipo = registro.tipo?.toLowerCase() || "diesel";
 
         if (tipo !== "diesel") {

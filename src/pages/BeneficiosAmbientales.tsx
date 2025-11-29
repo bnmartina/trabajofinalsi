@@ -10,7 +10,6 @@ import {
   Footprints
 } from "lucide-react";
 
-// Datos enriquecidos con narrativa sobre Huella de Carbono y contexto del Corredor
 const environmentalBenefits = [
   {
     id: "huella",

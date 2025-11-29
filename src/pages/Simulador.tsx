@@ -35,7 +35,6 @@ export type Registro = {
   fecha_hora: string;
 };
 
-// Constantes físicas
 const FUEL_L_PER_100KM = 30;
 const FUEL_L_PER_KM = FUEL_L_PER_100KM / 100;
 const EF_CO2_PER_L = 2.68;
@@ -46,7 +45,7 @@ const Simulador = () => {
   const navigate = useNavigate();
 
   const [periodo, setPeriodo] = useState("dia");
-  const [porcentajeVerde, setPorcentajeVerde] = useState(40); // Empezamos con 40%
+  const [porcentajeVerde, setPorcentajeVerde] = useState(40);
   const [numVehiculos, setNumVehiculos] = useState(150);
   const [generando, setGenerando] = useState(false);
   const [datosGenerados, setDatosGenerados] = useState<any>(null);
@@ -60,14 +59,13 @@ const Simulador = () => {
   const compChartInstance = useRef<any>(null);
   const multiChartInstance = useRef<any>(null);
 
-  // --- 1. LÓGICA DE GENERACIÓN (CORREGIDA) ---
   const generarRegistros = async () => {
     setGenerando(true);
     try {
       const registrosNuevos: Registro[] = [];
 
       for (let i = 0; i < numVehiculos; i++) {
-        // Determinar tipo basado en el porcentaje seleccionado
+        
         const isVerde = Math.random() * 100 < porcentajeVerde;
         let tipo: "full" | "hibrido" | "diesel" = "diesel";
         let kwatt = 0;
@@ -76,11 +74,11 @@ const Simulador = () => {
         const distancia = (periodo === "dia" ? 150 : periodo === "mes" ? 4500 : 54000) + Math.random() * 50;
 
         if (isVerde) {
-            // 50% probabilidad de ser Full o Híbrido si es verde
+            
             tipo = Math.random() > 0.5 ? "full" : "hibrido";
-            // Asignar carga aleatoria entre 200kW y 500kW para que el Hub funcione
+           
             kwatt = Math.floor(200 + Math.random() * 300);
-            kmElec = tipo === "full" ? distancia : (distancia * 0.6); // Híbrido usa 60% eléctrico
+            kmElec = tipo === "full" ? distancia : (distancia * 0.6);
         }
 
         const modelo = modelos[Math.floor(Math.random() * modelos.length)];
@@ -94,15 +92,15 @@ const Simulador = () => {
           distancia_recorrida: Math.round(distancia),
           km_a_recorrer: Math.round(distancia),
           km_electricos: Math.round(kmElec),
-          kwatt_carga: kwatt, // ¡IMPORTANTE! Esto es lo que lee el Hub
+          kwatt_carga: kwatt, 
           fecha_hora: new Date().toISOString(),
         });
       }
 
-      // 1. Guardar en Supabase
+     
       await supabase.from("dataset").insert(registrosNuevos);
       
-      // 2. Guardar en LocalStorage (Para que el Hub funcione offline/demo)
+     
       localStorage.setItem("simulacion_offline", JSON.stringify(registrosNuevos));
 
       setRegistros(registrosNuevos);
@@ -117,23 +115,19 @@ const Simulador = () => {
     }
   };
 
-  // --- 2. CÁLCULO DE EMISIONES ---
   const calcularEmisiones = (regs: Registro[]) => {
     if (!regs || regs.length === 0) return;
 
     const totalKm = regs.reduce((acc, r) => acc + r.distancia_recorrida, 0);
     
-    // Escenario Base (Todo Diesel)
     const emisionesDiesel = totalKm * EMISION_FACTOR_PER_KM;
 
-    // Escenario Real (Con los vehículos generados)
     const kmElectricosTotales = regs.reduce((acc, r) => acc + r.km_electricos, 0);
     const emisionesReales = (totalKm - kmElectricosTotales) * EMISION_FACTOR_PER_KM;
 
     const mitigacionVal = emisionesDiesel - emisionesReales;
     const reduccionPct = (mitigacionVal / emisionesDiesel) * 100;
 
-    // Actualizar Store global si existe
     if(setMitigacion) setMitigacion(mitigacionVal);
 
     setDatosGenerados({
@@ -146,20 +140,16 @@ const Simulador = () => {
     });
   };
 
-  // Recalcular si cambian inputs
   useEffect(() => {
     if (registros.length > 0) calcularEmisiones(registros);
   }, [porcentajeVerde, numVehiculos, periodo]);
 
-  // --- 3. GRÁFICAS (Chart.js) ---
   const renderCharts = () => {
     if (!datosGenerados) return;
 
-    // Destruir instancias previas
     if (compChartInstance.current) compChartInstance.current.destroy();
     if (multiChartInstance.current) multiChartInstance.current.destroy();
 
-    // Gráfico 1: Barras Comparativas
     if (compChartRef.current) {
       const ctx = compChartRef.current.getContext("2d");
       if (ctx) {
@@ -179,7 +169,6 @@ const Simulador = () => {
       }
     }
 
-    // Gráfico 2: Línea de Proyección
     if (multiChartRef.current) {
         const ctxM = multiChartRef.current.getContext("2d");
         if (ctxM) {
