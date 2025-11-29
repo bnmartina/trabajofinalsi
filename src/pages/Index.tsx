@@ -19,7 +19,7 @@ const Index = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
-              Sistema de
+              Sistema de Información
               <br />
               <span className="text-secondary">Descarbonización Bioceánica</span>
             </h1>
