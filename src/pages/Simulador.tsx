@@ -7,18 +7,16 @@ import { toast } from "sonner";
 import Chart from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 
-// [IMPORTANTE] Descomentar en tu proyecto local:
-// import { supabase } from "@/integrations/supabase/client";
-// import { useMitigacionStore } from "@/stores/mitigacionStore"; 
 
-// Mock de Supabase para la vista previa (Eliminar en local)
+import { supabase } from "@/integrations/supabase/client";
+import { useMitigacionStore } from "@/stores/mitigacionStore"; 
+
 const supabase = {
   from: () => ({
     insert: () => Promise.resolve({ error: null })
   })
 };
 
-// Mock del store (Eliminar en local si tienes el archivo real)
 const useMitigacionStore = () => {
     const [m, setM] = useState(0);
     return { mitigacion: m, setMitigacion: setM };
@@ -30,7 +28,7 @@ export type Registro = {
   patente: string;
   empresa: string;
   distancia_recorrida: number;
-  tipo: "full" | "hibrido" | "diesel"; // Tipado estricto
+  tipo: "full" | "hibrido" | "diesel";
   km_a_recorrer: number;
   km_electricos: number;
   kwatt_carga: number;

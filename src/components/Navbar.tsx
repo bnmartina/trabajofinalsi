@@ -8,8 +8,7 @@ import { toast } from "sonner";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  
-  // Lógica de autenticación integrada
+
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -20,17 +19,16 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  // Definición dinámica de ítems
-  // MODIFICACIÓN: Ahora Beneficios y Reportes solo aparecen si hay sesión iniciada
   const navItems = [
     { name: "Inicio", path: "/" },
     { name: "Simulador", path: "/simulador" },
     //{ name: "Mapas", path: "/mapas" },
     { name: "Hub Energético", path: "/hub-energetico" },
+    { name: "Beneficios Ambientales", path: "/beneficiosambientales" },
     
-    // Aquí aplicamos la condición a ambos
+
     ...(isAuthenticated ? [
-      { name: "Beneficios", path: "/beneficios" },
+      { name: "Beneficios Económicos", path: "/beneficios" },
       { name: "Reportes", path: "/reportes" }
     ] : []),
     
@@ -38,36 +36,33 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm transition-all duration-300">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           
-          {/* LOGO CON IMAGEN Y TEXTO */}
           <Link to="/" className="flex items-center gap-3 group">
             <img 
               src="/logo.png" 
               alt="SID-Bio Logo"
               className="h-10 w-10 object-contain transition-transform group-hover:scale-110"
-              // Fallback por si la imagen no existe en tu carpeta public
               onError={(e) => {
-                const target = e.target;
+                const target = e.target as HTMLImageElement;
                 target.onerror = null; 
                 target.style.display = 'none';
               }}
             />
-            {/* Si falla la imagen, el texto mantiene la identidad */}
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-foreground leading-none">SID-Bio</span>
+              <span className="font-bold text-lg text-foreground leading-none tracking-tight">SID-Bio</span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* --- NAVEGACIÓN DESKTOP --- */}
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <Link key={item.path} to={item.path}>
                 <Button
                   variant={location.pathname === item.path ? "default" : "ghost"}
-                  className="transition-all duration-300"
+                  className={`transition-all duration-300 ${location.pathname === item.path ? "shadow-md" : "hover:bg-muted"}`}
                 >
                   {item.name}
                 </Button>
@@ -100,24 +95,25 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* --- MENÚ MÓVIL (HAMBURGUESA) --- */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors text-foreground"
+            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label="Alternar menú"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* --- DESPLEGABLE MÓVIL --- */}
         {isOpen && (
-          <div className="md:hidden py-4 animate-fade-in border-t border-border bg-card">
+          <div className="md:hidden py-4 animate-fade-in border-t border-border bg-card absolute left-0 right-0 px-4 shadow-lg">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <Link key={item.path} to={item.path} onClick={() => setIsOpen(false)}>
                   <Button
                     variant={location.pathname === item.path ? "default" : "ghost"}
-                    className="w-full justify-start"
+                    className="w-full justify-start text-left"
                   >
                     {item.name}
                   </Button>
@@ -127,16 +123,16 @@ const Navbar = () => {
               <div className="h-px bg-border my-2"></div>
 
               {isAuthenticated ? (
-                 <Button variant="destructive" onClick={handleLogout} className="w-full justify-start gap-2">
-                   <LogOut className="w-4 h-4" /> Cerrar Sesión
-                 </Button>
-              ) : (
-                 <Link to="/login" onClick={() => setIsOpen(false)}>
-                   <Button variant="outline" className="w-full justify-start gap-2">
-                     <LogIn className="w-4 h-4" /> Ingresar
-                   </Button>
-                 </Link>
-              )}
+                  <Button variant="destructive" onClick={handleLogout} className="w-full justify-start gap-2">
+                    <LogOut className="w-4 h-4" /> Cerrar Sesión
+                  </Button>
+               ) : (
+                  <Link to="/login" onClick={() => setIsOpen(false)}>
+                    <Button variant="outline" className="w-full justify-start gap-2">
+                      <LogIn className="w-4 h-4" /> Ingresar
+                    </Button>
+                  </Link>
+               )}
             </div>
           </div>
         )}

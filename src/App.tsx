@@ -16,6 +16,7 @@ import Reportes from "./pages/Reportes";
 import Institucional from "./pages/Institucional";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/login";
+import BeneficiosAmbientales from "./pages/BeneficiosAmbientales";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +67,8 @@ const App = () => (
                   <Reportes />
                 </ProtectedRoute>
               } />
+
+              <Route path="/beneficiosambientales" element={<BeneficiosAmbientales />} />
 
               <Route path="/institucional" element={<Institucional />} />
               <Route path="*" element={<NotFound />} />
