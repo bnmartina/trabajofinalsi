@@ -19,7 +19,7 @@ const Index = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
-              Sistema de
+              Sistema de Información de
               <br />
               <span className="text-secondary">Descarbonización Bioceánica</span>
             </h1>
@@ -48,7 +48,7 @@ const Index = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-8">
-            Mapa del Corredor Bioceánico Tramo Palpala - Jama
+            Mapa del Corredor Bioceánico Tramo Jama - Pongo
           </h2>
 
           <div className="rounded-xl overflow-hidden shadow-lg border border-primary/20">
