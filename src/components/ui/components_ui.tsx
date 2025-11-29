@@ -1,16 +1,15 @@
 import React from 'react';
 
-// Botón personalizado con tema "Eco" (Verde Esmeralda)
 export const Button = ({ children, variant = "default", className = "", ...props }) => {
   const baseStyle = "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2";
   
   const variants = {
-    // Cambio principal: Blue -> Emerald
+    
     default: "bg-emerald-600 text-white hover:bg-emerald-700 shadow-md hover:shadow-lg",
     outline: "border border-emerald-200 bg-white text-emerald-700 hover:bg-emerald-50",
     ghost: "hover:bg-emerald-50 hover:text-emerald-700",
     destructive: "bg-red-500 text-white hover:bg-red-600",
-    secondary: "bg-emerald-100 text-emerald-900 hover:bg-emerald-200", // Variante extra útil
+    secondary: "bg-emerald-100 text-emerald-900 hover:bg-emerald-200",
   };
 
   return (
@@ -23,7 +22,6 @@ export const Button = ({ children, variant = "default", className = "", ...props
   );
 };
 
-// Input personalizado con foco verde
 export const Input = ({ className = "", ...props }) => (
   <input 
     className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:border-emerald-500 disabled:cursor-not-allowed disabled:opacity-50 ${className}`} 
@@ -31,7 +29,6 @@ export const Input = ({ className = "", ...props }) => (
   />
 );
 
-// Componentes de Tarjeta (Card) - Se mantienen neutros pero limpios
 export const Card = ({ className = "", children }) => (
   <div className={`rounded-lg border bg-card text-card-foreground shadow-sm bg-white ${className}`}>
     {children}

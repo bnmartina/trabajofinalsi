@@ -108,14 +108,11 @@ export default function Mapas() {
     return () => { mounted = false; };
   }, [mitigacion]);
 
-  // ---------- Estadísticas robustas: preferir stats.mean si existe ----------
   const computeStats = () => {
-    // preferir mean devuelto por backend
     const baseMeanFromStats = baseTile?.stats?.mean;
     const mitMeanFromStats = mitigatedTile?.stats?.mean;
 
     if (baseMeanFromStats != null || mitMeanFromStats != null) {
-      // si backend devolvió mean(s), úsalos (y si falta uno, se estima con mitigacion)
       const baseMean = baseMeanFromStats != null ? Number(baseMeanFromStats) : 2.5;
       let mitMean = mitMeanFromStats != null ? Number(mitMeanFromStats) : baseMean * (1 - mitigacion / 100);
       return {
@@ -124,7 +121,6 @@ export default function Mapas() {
       };
     }
 
-    // Si no hay mean, usar min/max si existen
     const baseMinValid = baseTile?.min != null;
     const baseMaxValid = baseTile?.max != null;
     const mitMinValid = mitigatedTile?.min != null;

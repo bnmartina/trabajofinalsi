@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
-// Importación de componentes y páginas
 import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Simulador from "./pages/Simulador";
@@ -20,7 +19,6 @@ import BeneficiosAmbientales from "./pages/BeneficiosAmbientales";
 
 const queryClient = new QueryClient();
 
-// Wrappers para protección de rutas
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;

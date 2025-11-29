@@ -13,14 +13,13 @@ const Login = () => {
   const handleAuth = async (e) => {
     e.preventDefault();
     
-    // Simulamos una petición al backend
     const promise = new Promise((resolve) => setTimeout(resolve, 800));
     
     toast.promise(promise, {
       loading: 'Verificando credenciales...',
       success: () => {
-        login(); // Actualiza el contexto y localStorage
-        navigate('/reportes'); // Redirige a la zona privada
+        login(); 
+        navigate('/reportes'); 
         return isLogin ? 'Bienvenido al sistema' : 'Registro completado con éxito';
       },
       error: 'Error al conectar',

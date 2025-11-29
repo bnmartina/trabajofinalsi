@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { format, parseISO } from "date-fns";
 import { saveAs } from "file-saver";
 
-// Asegúrate de haber instalado: npm install jspdf jspdf-autotable xlsx
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
@@ -26,7 +25,6 @@ type Camion = {
   fecha_hora: string;
 };
 
-// Mock de Supabase para evitar errores si no está configurado aún o falla la conexión
 const supabaseMock = {
   from: (_table: string) => ({
     select: (_cols: string) => ({
@@ -41,7 +39,6 @@ const Reportes = () => {
   const [isOnline, setIsOnline] = useState(true);
   const [empresaFiltro, setEmpresaFiltro] = useState("todas");
 
-  // Datos de ejemplo
   const datosEjemplo: Camion[] = [
     { modelo_camion: "Volvo FH", patente: "AA123BB", empresa: "Logística Norte", tipo: "full", distancia_recorrida: 150, km_electricos: 150, kwatt_carga: 120, fecha_hora: "2025-01-15T10:00:00" },
     { modelo_camion: "Scania R", patente: "CC456DD", empresa: "TransAndino", tipo: "hibrido", distancia_recorrida: 200, km_electricos: 100, kwatt_carga: 80, fecha_hora: "2025-02-10T14:30:00" },
@@ -56,8 +53,6 @@ const Reportes = () => {
     let error = null;
 
     try {
-      // Intenta usar Supabase real. Si falla, usa el mock.
-      // Si tienes supabase configurado correctamente, esta línea funcionará.
       const { data: sbData, error: sbError } = await supabase.from("dataset").select("*").order("fecha_hora", { ascending: true });
       data = sbData;
       error = sbError;
@@ -68,7 +63,6 @@ const Reportes = () => {
         toast.success(`${data.length} registros cargados`);
       }
     } catch {
-       // Si falla supabase real, intentamos mock (o simplemente pasamos al fallback)
     }
 
     if (!data || data.length === 0) {
@@ -144,7 +138,6 @@ const Reportes = () => {
     const doc = new jsPDF('p', 'mm', 'a4');
     const width = doc.internal.pageSize.getWidth();
     
-    // Encabezado
     doc.setFontSize(22);
     doc.setTextColor(34, 139, 34);
     doc.text("Reporte Oficial SID-Bio", width / 2, 25, { align: 'center' });
@@ -155,14 +148,12 @@ const Reportes = () => {
     doc.text(`Período: ${rangoFechas}`, width / 2, 43, { align: 'center' });
     doc.text(`Generado: ${format(new Date(), 'dd/MM/yyyy HH:mm')}`, width / 2, 50, { align: 'center' });
 
-    // KPIs
     doc.setFontSize(14);
     doc.setTextColor(0);
     doc.text(`CO₂ Ahorrado: ${co2Ahorrado.toLocaleString()} kg`, 20, 70);
     doc.text(`Energía Consumida: ${totalEnergia.toLocaleString()} kWh`, 20, 80);
     doc.text(`Ahorro Económico: $${ahorroPesos.toLocaleString()}`, 20, 90);
 
-    // Tabla de datos
     const tabla = filtrados.slice(0, 50).map(c => [
         format(parseISO(c.fecha_hora.split("T")[0]), 'dd/MM/yyyy'),
         c.patente,
@@ -186,7 +177,6 @@ const Reportes = () => {
   };
 
   const exportarExcel = () => {
-    // AQUÍ ESTABA EL ERROR: He reemplazado los (...) por el mapeo real de datos
     const datos = filtrados.map(c => ({
       Fecha: format(parseISO(c.fecha_hora.split("T")[0]), 'dd/MM/yyyy'),
       Patente: c.patente,
