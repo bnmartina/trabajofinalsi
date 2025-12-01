@@ -47,6 +47,7 @@ const Institucional = () => {
         <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
           Sistema de Información de Descarbonización para el <span className="text-emerald-700 font-semibold">Corredor Bioceánico de Capricornio</span>.
         </p>
+      
       </div>
 
       <div className="max-w-6xl mx-auto space-y-16">
@@ -62,7 +63,7 @@ const Institucional = () => {
             </CardHeader>
             <CardContent>
               <p className="text-slate-600 leading-relaxed text-lg">
-                Proveer una plataforma tecnológica integrada que centralice, procese y analice en tiempo real los datos de emisiones del transporte de carga, facilitando la toma de decisiones estratégicas para mitigar el impacto ambiental en el tramo jujeño del Corredor Bioceánico.
+                Proveer una plataforma tecnológica integrada que centralice, procese y analice los datos de emisiones del transporte de carga, facilitando la toma de decisiones estratégicas para mitigar el impacto ambiental en el tramo jujeño del Corredor Bioceánico.
               </p>
             </CardContent>
           </Card>

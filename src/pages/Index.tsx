@@ -23,8 +23,7 @@ const Index = () => {
               <span className="text-secondary">Descarbonización Bioceánica</span>
             </h1>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-              Monitoreo en tiempo real del impacto ambiental y económico del transporte
-              bioceánico. Datos precisos para decisiones sostenibles.
+              herramienta digital orientada al análisis y simulación del impacto ambiental del transporte de carga que atraviesa el tramo jujeño del Corredor Bioceánico de Capricornio
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/simulador">
